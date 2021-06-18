@@ -19,16 +19,16 @@
 
 #nav {
   padding: 30px;
-  background: #3B4CCA;
+  background: #f5beb4;
   text-align: left;
-  border-bottom: 10px solid #FFDE00;
+  border-bottom: 10px solid #9bc472;
 
   a {
     font-weight: bold;
     color: #ffff;
 
     &.router-link-exact-active {
-      color: #FFDE00;
+      color: #cbf6db;
     }
   }
 }

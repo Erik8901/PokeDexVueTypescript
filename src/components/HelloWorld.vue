@@ -1,19 +1,29 @@
 <template>
   <div class="hello">
-    {{ msg }}
+    <ul>
+      <li v-for="pokemon in selectedPokemon" :key="pokemon.name">
+        <span>{{ pokemon.name }}</span>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import store from "./store/index";
 
-@Component
+@Component({
+  computed: {
+    selectedPokemon: {
+      get(): Record<any, unknown> {
+        return this.$store.state.selectedPokemon;
+      },
+    },
+    // other stuff
+  },
+})
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
-  created() {
-    this.$store.dispatch("loadPokemons");
-    console.log("select");
-  }
 }
 </script>
 

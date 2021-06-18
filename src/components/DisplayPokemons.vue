@@ -6,15 +6,19 @@
     </div>
     <div v-else>
       <ul>
-        <li
-          v-for="pokemon in pokemonList"
-          :key="pokemon.name"
-          v-bind:style="{ background: background }"
-        >
-          <span>{{ pokemon.name }}</span>
-          <span> {{ pokemon.id }}</span>
-          <img :src="pokemon.sprites.front_default" />
-        </li>
+        <router-link :to="{ path: '/Pokemon/', query: { id: this.url } }">
+          <li
+            v-for="(pokemon, index) in pokemonList"
+            :key="`pokemon-${index}`"
+            @click="selectPokemon(pokemon)"
+          >
+          
+            <span>{{ pokemon.name }}</span>
+            <span> {{ pokemon.id }}</span>
+            <img :src="pokemon.sprites.front_default" />
+            
+          </li>
+        </router-link>
       </ul>
     </div>
   </div>
@@ -22,13 +26,15 @@
 
 <script lang="ts">
 import { mapState } from "vuex";
-//import store from "./store/index";
+import store from "./store/index";
+
+//  v-bind:style="{ background: background }"
 
 export default {
   name: "DisplayPokemons",
   data() {
     return {
-      background: "yellow",
+      url: "",
     }; //return
   },
   computed: mapState(["pokemonList"]),
@@ -39,7 +45,12 @@ export default {
 
   // mounted: function () {},
 
-  methods: {},
+  methods: {
+    selectPokemon: function (pokemon) {
+      this.$store.commit("SET_SELECTEDPOKEMON", pokemon);
+      this.url = pokemon.name;
+    },
+  },
 };
 </script>
 
@@ -48,7 +59,8 @@ export default {
 h3 {
   margin: 40px 0 0;
 }
-ul {
+ul,
+a {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   text-align: center;
