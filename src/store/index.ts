@@ -9,12 +9,13 @@ export default new Vuex.Store({
   state: {
     pokemonList: [],
     amount: 151,
-    selectedPokemon: {}
+    selectedPokemon: {},
   },
   mutations: {
     SET_POKEMONLIST: (state, pokemon) => {
       if (state.pokemonList.length !== state.amount) {
         state.pokemonList.push(pokemon)
+
       }
     },
     SET_SELECTEDPOKEMON: (state, selected) => {

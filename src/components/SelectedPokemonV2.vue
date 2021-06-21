@@ -1,12 +1,22 @@
 <template>
   <div class="selected-pokemon">
     <h1>Pokemon V2</h1>
-    <div class="selected-pokemon-container">
-      <span>{{ this.data.name }}</span>
-      <span>{{ this.data.id }}</span>
+    <div
+      v-if="this.Pokemon.name === undefined"
+      class="selected-pokemon-container"
+    >
+      <span>Loading...</span>
+    </div>
+    <div v-else class="pokemon-info-container">
+      <h2>
+        {{
+          this.Pokemon.name.charAt(0).toUpperCase() + this.Pokemon.name.slice(1)
+        }}
+      </h2>
+      <span>#{{ this.Pokemon.id }}</span>
       <div class="container-selected-pokemons-imgs">
-        <img :src="this.data.sprites.front_shiny" />
-        <img :src="this.data.sprites.back_default" />
+        <img :src="this.Pokemon.sprites.other.dream_world.front_default" />
+        <!-- <img :src="this.Pokemon.sprites.back_default" /> -->
       </div>
     </div>
   </div>
@@ -20,7 +30,7 @@ export default {
   props: {},
   data() {
     return {
-      data: {
+      Pokemon: {
         type: Object,
         default: () => ({}),
       },
@@ -33,9 +43,7 @@ export default {
   methods: {
     runOnLoad: function () {
       console.log("Seleced Pokemon: " + this.$store.state.selectedPokemon.name);
-      console.log(this.$store.state.selectedPokemon.id);
-      this.data = this.$store.state.selectedPokemon;
-      console.log(this.data.moves);
+      this.Pokemon = this.$store.state.selectedPokemon;
     },
   },
 };
@@ -45,6 +53,15 @@ export default {
 <style scoped>
 h3 {
   margin: 40px 0 0;
+}
+.pokemon-info-container {
+  text-align: left;
+  padding-left: 10rem;
+  font-weight: 600;
+}
+img {
+  height: 20rem;
+  width: 20rem;
 }
 </style>
  
